@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { ThemeProvider } from "../context/ThemeContext";
+import { ThemeProvider } from "../src/context/ThemeContext";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../src/services/i18n";
 import QueryClientProvider from "../src/services/QueryClientProvider";
