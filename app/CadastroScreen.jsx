@@ -1,58 +1,58 @@
-import { Link } from 'expo-router';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../src/services/firebaseConfig';
+import { Link, useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../src/context/ThemeContext';
-import ThemeToggleButton from '../src/components/ThemeToggleButton';
+import ThemeToggleButton from '../src/components/ThemeToggleButton'; // Importe o botão de toggle de tema
 
-export default function LoginScreen() {
-  // Hook do tema da aplicação
+export default function CadastroScreen() {
+  // Hook para acessar o contexto de tema
   const { colors } = useTheme();
   
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   const router = useRouter(); // Hook para navegação
 
-  useEffect(() => {
-    const verificarUsuarioLogado = async () => {
-      const usuarioSalvo = await AsyncStorage.getItem('@user');
-      if (usuarioSalvo) router.push('/HomeScreen'); // Redireciona se o usuário já estiver logado
-    };
-    verificarUsuarioLogado();
-  }, []);
-
-  const handleLogin = () => {
-    if (!email || !senha) return Alert.alert('Atenção', 'Preencha todos os campos!');
-    signInWithEmailAndPassword(auth, email, senha)
+  // Função para criar o usuário
+  const handleCadastro = () => {
+    if (!nome || !email || !senha) {
+      Alert.alert('Atenção', 'Preencha todos os campos!');
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, senha)
       .then(async (userCredential) => {
         const user = userCredential.user;
         await AsyncStorage.setItem('@user', JSON.stringify(user));
-        router.push('/HomeScreen');
+        router.push('/HomeScreen'); // Navega para a HomeScreen após o cadastro
       })
       .catch((error) => {
-        if (error.code === 'auth/invalid-credential') {
-          Alert.alert("Erro", "Verifique email e senha digitados.");
-        }
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        Alert.alert("Erro", "Houve um problema ao criar sua conta.");
       });
-  };
-
-  const esqueceuSenha = () => {
-    if (!email) return alert("Digite o email para recuperar a senha");
-    sendPasswordResetEmail(auth, email)
-      .then(() => alert("Enviado o email de recuperação"))
-      .catch(() => alert("Erro ao enviar email. Verifique se o email está correto."));
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
+      {/* Adicionando o botão de alternância de tema */}
       <ThemeToggleButton />
 
-      <Text style={[styles.titulo, { color: colors.text }]}>Login</Text>
+      <Text style={[styles.titulo, { color: colors.text }]}>Criar Conta</Text>
 
+      {/* Campo Nome */}
+      <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
+        placeholder="Nome completo"
+        placeholderTextColor={colors.placeHolderTextColor}
+        value={nome}
+        onChangeText={setNome}
+      />
+
+      {/* Campo Email */}
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
         placeholder="E-mail"
@@ -63,6 +63,7 @@ export default function LoginScreen() {
         onChangeText={setEmail}
       />
 
+      {/* Campo Senha */}
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
         placeholder="Senha"
@@ -72,21 +73,22 @@ export default function LoginScreen() {
         onChangeText={setSenha}
       />
 
-      <TouchableOpacity style={[styles.botao, { backgroundColor: colors.button }]} onPress={handleLogin}>
-        <Text style={[styles.textoBotao, { color: colors.buttonText }]}>Login</Text>
+      {/* Botão de Cadastro */}
+      <TouchableOpacity style={[styles.botao, { backgroundColor: colors.button }]} onPress={handleCadastro}>
+        <Text style={[styles.textoBotao, { color: colors.buttonText }]}>Cadastrar</Text>
       </TouchableOpacity>
 
-      <Link href="CadastroScreen" style={[styles.link, { color: colors.text }]}>Cadastre-se</Link>
-      <Text onPress={esqueceuSenha} style={[styles.link, { color: colors.text }]}>Esqueceu a senha?</Text>
+      <Link href="/" style={[styles.link, { color: colors.text }]}>Fazer login</Link>
     </View>
   );
 }
 
+// Estilização
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 24,
+    padding: 20,
   },
   titulo: {
     fontSize: 28,

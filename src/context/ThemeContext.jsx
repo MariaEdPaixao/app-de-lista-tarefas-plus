@@ -1,4 +1,4 @@
-import React,{createContext,useContext,useState} from "react";
+import { createContext, useContext, useState} from "react";
 import { Appearance } from "react-native";
 
 const ThemeContext = createContext();
@@ -15,24 +15,24 @@ export function ThemeProvider({children}){
         setTheme((value)=>value==='light' ? 'dark':'light')
     }
 
-    const themeColors = {
+     const themeColors = {
         light:{
-            background:'#FFF',
-            text:'#000',
-            button:'#007bffff',
-            buttonText:'#fff',
-            input:'#f0f0f0',
-            inputText:'#000',
-            placeHolderTextColor:'#555'
+            background: '#FAFAFA',
+            text: '#222222',
+            button: '#294db1',
+            buttonText: '#FFFFFF',
+            input: '#FFFFFF',
+            inputText: '#333333',
+            placeHolderTextColor: '#888888',
         },
         dark:{
-            background:'#121212',
-            text:'#fff',
-            button:'#3fd92bff',
-            buttonText:'#000',
-            input:'#333',
-            inputText:'#fff',
-            placeHolderTextColor:'#aaa'
+            background: '#1A1C1E',
+            text: '#E0E0E0',
+            button: '#5a7cd8',
+            buttonText: '#1A1C1E',
+            input: '#2C2F33',
+            inputText: '#FFFFFF',
+            placeHolderTextColor: '#AAAAAA',
         }
     }
 
