@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "270006469588",
+    "project_id": "tasklist-cp4",
+    "storage_bucket": "tasklist-cp4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270006469588:android:80dbee96d07515f1584c41",
+        "android_client_info": {
+          "package_name": "com.laurafiap.tasklist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270006469588-98vg41mvsrjaqa2mqh4bpckbprci2fgo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laurafiap.tasklist",
+            "certificate_hash": "22f807d9e97aad5dbb8837c68c4c609702d161c9"
+          }
+        },
+        {
+          "client_id": "270006469588-8lsac0h72jbmj6emvt4ci4pt7l582jrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Zv-X54JR9hvyXgECoFqQ-1WmD6hG_v8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270006469588-8lsac0h72jbmj6emvt4ci4pt7l582jrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
