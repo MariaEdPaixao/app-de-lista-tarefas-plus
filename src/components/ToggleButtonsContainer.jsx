@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        // alignContent: 'center',
         width: '100%',
     }
 })
