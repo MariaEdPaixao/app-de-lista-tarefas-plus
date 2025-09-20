@@ -5,13 +5,13 @@ import { auth } from '../src/services/firebaseConfig';
 import { Link, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../src/context/ThemeContext';
-import ThemeToggleButton from '../src/components/ThemeToggleButton'; // Importe o botão de toggle de tema
+import ThemeToggleButton from '../src/components/ThemeToggleButton';
 import { useLanguage } from '../src/context/LanguageContext';
 import ToggleButtonsContainer from '../src/components/ToggleButtonsContainer';
 import { useTranslation } from 'react-i18next';
 
 export default function CadastroScreen() {
-  // Hook para acessar o contexto de tema
+
   const { colors } = useTheme();
 
   const { t } = useTranslation();
@@ -20,9 +20,8 @@ export default function CadastroScreen() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const router = useRouter(); // Hook para navegação
+  const router = useRouter();
 
-  // Função para criar o usuário
   const handleCadastro = () => {
     if (!nome || !email || !senha) {
       Alert.alert('Atenção', 'Preencha todos os campos!');
@@ -32,7 +31,7 @@ export default function CadastroScreen() {
       .then(async (userCredential) => {
         const user = userCredential.user;
         await AsyncStorage.setItem('@user', JSON.stringify(user));
-        router.push('/HomeScreen'); // Navega para a HomeScreen após o cadastro
+        router.push('/HomeScreen');
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -42,12 +41,11 @@ export default function CadastroScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      {/* Adicionando o botão de alternância de tema */}
+     <View style={[styles.container, { backgroundColor: colors.background }]}>
+    
       <ToggleButtonsContainer />
       <Text style={[styles.titulo, { color: colors.text }]}>{t("register")}</Text>
 
-      {/* Campo Nome */}
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
         placeholder={t("fullName")}
@@ -56,7 +54,6 @@ export default function CadastroScreen() {
         onChangeText={setNome}
       />
 
-      {/* Campo Email */}
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
         placeholder="E-mail"
@@ -67,7 +64,6 @@ export default function CadastroScreen() {
         onChangeText={setEmail}
       />
 
-      {/* Campo Senha */}
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
         placeholder={t("password")}
@@ -77,7 +73,6 @@ export default function CadastroScreen() {
         onChangeText={setSenha}
       />
 
-      {/* Botão de Cadastro */}
       <TouchableOpacity style={[styles.botao, { backgroundColor: colors.button }]} onPress={handleCadastro}>
         <Text style={[styles.textoBotao, { color: colors.buttonText }]}>{t("register")}</Text>
       </TouchableOpacity>
@@ -87,7 +82,6 @@ export default function CadastroScreen() {
   );
 }
 
-// Estilização
 const styles = StyleSheet.create({
   container: {
     flex: 1,
