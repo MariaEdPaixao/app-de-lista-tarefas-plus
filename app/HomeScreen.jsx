@@ -248,13 +248,13 @@ export default function HomeScreen() {
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
-            {/* <View style={styles.header}>
-                <ThemeToggleButton />
-            </View> */}
-            <ToggleButtonsContainer />
-            <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-                <Text style={styles.logoutText}>{t("logout")}</Text>
-            </TouchableOpacity>
+
+            <View style={styles.header}>
+                <ToggleButtonsContainer/>
+                <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+                    <Text style={styles.logoutText}>Logout</Text>
+                </TouchableOpacity>
+            </View>
             <Text style={[styles.welcome, { color: colors.text }]}>
                 {t("greeting")}
             </Text>
@@ -315,21 +315,24 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 20,
+        marginBottom: 8,
     },
 
     logoutButton: {
         backgroundColor: "#FF6B6B",
-        paddingHorizontal: 16,
+        paddingHorizontal: 15,
         paddingVertical: 8,
         borderRadius: 20,
         elevation: 2,
+        maxWidth: '25%',
+        alignSelf: 'flex-end',
     },
 
     logoutText: {
         color: "#fff",
         fontWeight: "bold",
         fontSize: 14,
+        textAlign: "center",
     },
     container: {
         flex: 1,
@@ -340,7 +343,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "700",
         textAlign: "center",
-        marginBottom: 8,
+        marginVertical: 8,
     },
     motivation: {
         fontSize: 14,
