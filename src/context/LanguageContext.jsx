@@ -6,7 +6,7 @@ const LanguageContext = createContext();
 export default function LanguageProvider({ children }) {
 
     const { i18n } = useTranslation();
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(() => i18n.language === "pt");
 
     const toggleIsChecked = () => {
         const newLanguage = isChecked ? 'pt' : 'en';
