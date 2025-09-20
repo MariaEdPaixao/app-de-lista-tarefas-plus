@@ -2,6 +2,14 @@
 
 Uma aplicação móvel moderna e completa para gerenciamento de tarefas, desenvolvida com React Native e Expo. O app oferece autenticação segura, sincronização em tempo real, notificações push, temas personalizáveis e suporte a múltiplos idiomas.
 
+## 🎥 Demonstração da Aplicação
+
+Assista ao vídeo de demonstração do aplicativo em funcionamento:
+
+[![Demonstração do App de Lista de Tarefas Plus](https://img.youtube.com/vi/pg5eGUuXSdE/0.jpg)](https://youtu.be/pg5eGUuXSdE)
+
+**🔗 [Clique aqui para assistir no YouTube](https://youtu.be/pg5eGUuXSdE)**
+
 ## 🚀 Características Principais
 
 - **Autenticação Completa**: Login/Cadastro com email/senha e integração com Google OAuth
