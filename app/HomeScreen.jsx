@@ -149,10 +149,10 @@ export default function HomeScreen() {
         <View style={[styles.container, { backgroundColor: colors.background }]}>
             <View style={styles.header}>
                 <ToggleButtonsContainer/>
-            </View>
                 <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                     <Text style={styles.logoutText}>Logout</Text>
                 </TouchableOpacity>
+            </View>
             <Text style={[styles.welcome, { color: colors.text }]}>
                 {t("greeting")}
             </Text>
