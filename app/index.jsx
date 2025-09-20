@@ -120,7 +120,7 @@ export default function LoginScreen() {
         onPress={() => promptAsync()} 
         disabled={!request}
       >
-        <Text style={[styles.textoBotao, { color: "white" }]}>Entrar com Google</Text>
+        <Text style={[styles.textoBotao, { color: "white" }]}>{t("googleLogin")}</Text>
       </TouchableOpacity>
 
       <Link href="CadastroScreen" style={[styles.link, { color: colors.text }]}>{t("signUp")}</Link>
