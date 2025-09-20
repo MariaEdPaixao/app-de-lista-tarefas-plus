@@ -1,17 +1,23 @@
 import { Link } from 'expo-router';
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Switch } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../src/services/firebaseConfig';
 import { useTheme } from '../src/context/ThemeContext';
 import ThemeToggleButton from '../src/components/ThemeToggleButton';
+import { useTranslation } from 'react-i18next';
+import LanguageToggleButton from '../src/components/LanguageToggleButton';
+import ToggleButtonsContainer from '../src/components/ToggleButtonsContainer';
 
 export default function LoginScreen() {
   // Hook do tema da aplicação
   const { colors } = useTheme();
-  
+
+  // Hook de internacionalização
+  const { t, i18n } = useTranslation();
+
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -49,10 +55,8 @@ export default function LoginScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <ThemeToggleButton />
-
-      <Text style={[styles.titulo, { color: colors.text }]}>Login</Text>
-
+      <ToggleButtonsContainer/>
+      <Text style={[styles.titulo, { color: colors.text }]}>{t("login")}</Text>
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
         placeholder="E-mail"
@@ -65,7 +69,7 @@ export default function LoginScreen() {
 
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
-        placeholder="Senha"
+        placeholder={t("password")}
         placeholderTextColor={colors.placeHolderTextColor}
         secureTextEntry
         value={senha}
@@ -76,8 +80,8 @@ export default function LoginScreen() {
         <Text style={[styles.textoBotao, { color: colors.buttonText }]}>Login</Text>
       </TouchableOpacity>
 
-      <Link href="CadastroScreen" style={[styles.link, { color: colors.text }]}>Cadastre-se</Link>
-      <Text onPress={esqueceuSenha} style={[styles.link, { color: colors.text }]}>Esqueceu a senha?</Text>
+      <Link href="CadastroScreen" style={[styles.link, { color: colors.text }]}>{t("signUp")}</Link>
+      <Text onPress={esqueceuSenha} style={[styles.link, { color: colors.text }]}>{t("forgotPassword")}</Text>
     </View>
   );
 }
@@ -115,5 +119,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     textDecorationLine: 'underline',
-  }
+  },
+  // buttonsContainer style removed; now handled by ToggleButtonsContainer component
 });

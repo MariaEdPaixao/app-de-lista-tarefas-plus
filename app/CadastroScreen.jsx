@@ -6,11 +6,16 @@ import { Link, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../src/context/ThemeContext';
 import ThemeToggleButton from '../src/components/ThemeToggleButton'; // Importe o botão de toggle de tema
+import { useLanguage } from '../src/context/LanguageContext';
+import ToggleButtonsContainer from '../src/components/ToggleButtonsContainer';
+import { useTranslation } from 'react-i18next';
 
 export default function CadastroScreen() {
   // Hook para acessar o contexto de tema
   const { colors } = useTheme();
-  
+
+  const { t } = useTranslation();
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -39,14 +44,13 @@ export default function CadastroScreen() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Adicionando o botão de alternância de tema */}
-      <ThemeToggleButton />
-
-      <Text style={[styles.titulo, { color: colors.text }]}>Criar Conta</Text>
+      <ToggleButtonsContainer />
+      <Text style={[styles.titulo, { color: colors.text }]}>{t("register")}</Text>
 
       {/* Campo Nome */}
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
-        placeholder="Nome completo"
+        placeholder={t("fullName")}
         placeholderTextColor={colors.placeHolderTextColor}
         value={nome}
         onChangeText={setNome}
@@ -66,7 +70,7 @@ export default function CadastroScreen() {
       {/* Campo Senha */}
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.inputText, borderColor: colors.text }]}
-        placeholder="Senha"
+        placeholder={t("password")}
         placeholderTextColor={colors.placeHolderTextColor}
         secureTextEntry
         value={senha}
@@ -75,10 +79,10 @@ export default function CadastroScreen() {
 
       {/* Botão de Cadastro */}
       <TouchableOpacity style={[styles.botao, { backgroundColor: colors.button }]} onPress={handleCadastro}>
-        <Text style={[styles.textoBotao, { color: colors.buttonText }]}>Cadastrar</Text>
+        <Text style={[styles.textoBotao, { color: colors.buttonText }]}>{t("register")}</Text>
       </TouchableOpacity>
 
-      <Link href="/" style={[styles.link, { color: colors.text }]}>Fazer login</Link>
+      <Link href="/" style={[styles.link, { color: colors.text }]}>{t("login")}</Link>
     </View>
   );
 }
