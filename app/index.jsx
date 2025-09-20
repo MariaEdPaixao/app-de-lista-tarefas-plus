@@ -120,11 +120,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textDecorationLine: 'underline',
   },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    paddingHorizontal: 20,
-  },
+  // buttonsContainer style removed; now handled by ToggleButtonsContainer component
 });
