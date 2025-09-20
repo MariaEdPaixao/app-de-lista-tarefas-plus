@@ -20,5 +20,6 @@
     "noTaskCreated":"Nenhuma tarefa criada ainda",
     "taskReminder":"Lembrete de Tarefa",
     "yourTask":"Sua tarefa",
-    "isDueToday":"vence hoje!"
+    "isDueToday":"vence hoje!",
+    "googleLogin": "Entrar com Google"
 }
