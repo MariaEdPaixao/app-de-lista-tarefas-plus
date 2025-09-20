@@ -26,10 +26,10 @@ export default function LoginScreen() {
 
   // OAuth Google
   const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: "270006469588-8lsac0h72jbmj6emvt4ci4pt7l582jrs.apps.googleusercontent.com",  // para desenvolvimento no Expo Go
+    expoClientId: "270006469588-olmn7n02l8ljmnn925qn1drpkkp5jf4j.apps.googleusercontent.com",
     iosClientId: "270006469588-k9aed76uechg6udtndhb4e8pimetb9sg.apps.googleusercontent.com",
     androidClientId: "270006469588-98vg41mvsrjaqa2mqh4bpckbprci2fgo.apps.googleusercontent.com",
-    webClientId: "270006469588-8lsac0h72jbmj6emvt4ci4pt7l582jrs.apps.googleusercontent.com",    // pega do Firebase
+    webClientId: "270006469588-8lsac0h72jbmj6emvt4ci4pt7l582jrs.apps.googleusercontent.com",
   });
 
   useEffect(() => {
@@ -111,7 +111,6 @@ export default function LoginScreen() {
         <Text style={[styles.textoBotao, { color: colors.buttonText }]}>Login</Text>
       </TouchableOpacity>
 
-      {/* Botão Google */}
       <TouchableOpacity 
         style={[styles.botao, { backgroundColor: "#4285F4", marginTop: 10 }]} 
         onPress={() => promptAsync()} 
