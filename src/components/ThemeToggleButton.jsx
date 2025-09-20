@@ -18,15 +18,15 @@ export default function ThemeToggleButton() {
 
 const styles = StyleSheet.create({
     button: {
-        padding: 12,
+        padding: 5,
         borderRadius: 8,
         marginTop: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 50,
-        height: 50,
+        width: 55,
+        height: 55,
     },
     icon: {
-        fontSize: 24,
+        fontSize: 26,
     },
 });

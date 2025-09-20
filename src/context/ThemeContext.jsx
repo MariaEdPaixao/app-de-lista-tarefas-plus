@@ -24,6 +24,7 @@ export function ThemeProvider({children}){
             input: '#FFFFFF',
             inputText: '#333333',
             placeHolderTextColor: '#888888',
+            border: '#CCCCCC',
         },
         dark:{
             background: '#1A1C1E',
@@ -33,6 +34,7 @@ export function ThemeProvider({children}){
             input: '#2C2F33',
             inputText: '#FFFFFF',
             placeHolderTextColor: '#AAAAAA',
+            border: '#444444',
         }
     }
 
