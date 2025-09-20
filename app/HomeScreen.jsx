@@ -184,7 +184,7 @@ export default function HomeScreen() {
             const tokenData = await Notifications.getExpoPushTokenAsync({
                 projectId: "6897cbf9-ab81-42df-8a56-0b40bf649729" // Your EAS project ID
             });
-            const token = tokenData.data
+            const token = tokenData.data;
             console.log("Expo Push Token gerado com sucesso: ", token)
             return token
         }catch(error){
