@@ -178,7 +178,7 @@ export default function HomeScreen() {
 
     // Notifications
 
-    const registerForPushNotificationsAsync = async() =>{
+    const registerForPushNotificationsAsync = async () =>{
         try{
             // For development/testing, we can skip the token generation if it fails
             const tokenData = await Notifications.getExpoPushTokenAsync({
