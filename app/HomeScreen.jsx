@@ -32,7 +32,19 @@ import { useRouter } from 'expo-router';
 import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import CreateTaskModal from "../src/components/CreateTaskModal";
 import SuccessModal from "../src/components/SuccessModal";
+import ToggleButtonsContainer from "../src/components/ToggleButtonsContainer";
+import { useTranslation } from "react-i18next";
+import * as Notifications from 'expo-notifications';
 
+// Set notification behavior
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowBanner: true,
+        shouldShowList: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+    }),
+});
 
 export default function HomeScreen() {
     const { colors } = useTheme();
@@ -45,6 +57,9 @@ export default function HomeScreen() {
         dueDate: "",
     });
     const [uid, setUid] = useState(null);
+    const [expoPushToken, setExpoPushToken] = useState(null);
+
+    const { t } = useTranslation();
 
     const router = useRouter();
 
@@ -125,6 +140,20 @@ export default function HomeScreen() {
             updatedAt: serverTimestamp(),
         });
 
+        // Schedule a notification for the due date
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: t("taskReminder") || "Task Reminder",
+                body: `${t("yourTask") || "Your task"} "${newTask.title}" ${t("isDueToday") || "is due today!"}`,
+                sound: 'default',
+            },
+            trigger: {
+                date: parsedDate, // Schedule for the due date at midnight
+            },
+        });
+
+        console.log(`Notification scheduled for task: ${newTask.title} on ${parsedDate.toDateString()}`);
+
         setNewTask({ title: "", description: "", dueDate: "" });
         setModalVisible(false);
         await refetch();
@@ -139,18 +168,95 @@ export default function HomeScreen() {
             completed: !currentValue,
             updatedAt: new Date(),
         });
+
+        // If task is being marked as completed, you might want to cancel its notification
+        if (!currentValue) {
+            // Task is being completed, you can implement notification cancellation here if needed
+            console.log(`Task ${id} marked as completed - notification handling could be added here`);
+        }
     };
+
+    // Notifications
+
+    const registerForPushNotificationsAsync = async () =>{
+        try{
+            // For development/testing, we can skip the token generation if it fails
+            const tokenData = await Notifications.getExpoPushTokenAsync({
+                projectId: "6897cbf9-ab81-42df-8a56-0b40bf649729" // Your EAS project ID
+            });
+            const token = tokenData.data;
+            console.log("Expo Push Token gerado com sucesso: ", token)
+            return token
+        }catch(error){
+            console.log("Erro ao gerar token", error)
+            // For local notifications, we don't necessarily need the push token
+            console.log("Continuando sem push token - notificações locais funcionarão normalmente")
+            return null
+        }
+    }
+
+    useEffect(()=>{
+        (async()=>{
+            //Chama a função que registra o dispositivo com o serviço de notificação
+            const token = await registerForPushNotificationsAsync()
+            //Armazenando o token no estado
+            setExpoPushToken(token)
+        })()
+    },[])
+
+    useEffect(() => {
+        //Adiciona um ouvinte(listener) que será chamado sempre que uma notificação for recebida.
+        const subscription = Notifications.addNotificationReceivedListener(notification => {
+            //Exibir no console a notificação recebida - útil para testes ou debug
+            console.log("Notificação recebida: ", notification)
+        })
+
+        //Função de limpeza que será chamada
+        return () => subscription.remove()
+    }, [])
+
+    useEffect(() => {
+        (async () => {
+
+            //Verificar se já tem de permisão de notificação
+            const { status: existingStatus } = await Notifications.getPermissionsAsync()
+            let finalStatus = existingStatus
+
+            //Se não tiver permissão, solicita ao usuário
+            if (existingStatus !== "granted") {
+                const { status } = await Notifications.requestPermissionsAsync()
+                finalStatus = status
+            }
+
+            //Se ainda não foi permitido o usuario das notificações
+            if (finalStatus !== "granted") {
+                alert("Permissão para notificação não concedida")
+            }
+        })()
+    }, [])
+
+    useEffect(() => {
+        // Handle notification responses (when user taps on notification)
+        const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+            console.log('Notification response received:', response);
+            // You can navigate to a specific screen or perform actions here
+        });
+
+        return () => subscription.remove();
+    }, []);
+
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
+
             <View style={styles.header}>
-                <ThemeToggleButton />
+                <ToggleButtonsContainer/>
                 <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                     <Text style={styles.logoutText}>Logout</Text>
                 </TouchableOpacity>
             </View>
             <Text style={[styles.welcome, { color: colors.text }]}>
-                Olá 👋, que bom te ter por aqui!
+                {t("greeting")}
             </Text>
 
             {!isLoading && !isError && motivation && (
@@ -160,7 +266,7 @@ export default function HomeScreen() {
             )}
 
             <Text style={[styles.sub, { color: colors.inputText }]}>
-                Vamos criar uma tarefa hoje?
+                {t("letsCreateATask")}
             </Text>
 
             <TouchableOpacity
@@ -168,7 +274,7 @@ export default function HomeScreen() {
                 onPress={() => setModalVisible(true)}
             >
                 <Text style={[styles.createButtonText, { color: colors.buttonText }]}>
-                    ➕ Criar Tarefa
+                    ➕ {t("createTask")}
                 </Text>
             </TouchableOpacity>
 
@@ -181,7 +287,7 @@ export default function HomeScreen() {
                 style={{ marginTop: 20 }}
                 ListEmptyComponent={
                     <Text style={{ color: colors.inputText, textAlign: "center", marginTop: 40 }}>
-                        Nenhuma tarefa criada ainda ✨
+                        {t("noTaskCreated")} ✨
                     </Text>
                 }
             />
@@ -209,21 +315,24 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 20,
+        marginBottom: 8,
     },
 
     logoutButton: {
         backgroundColor: "#FF6B6B",
-        paddingHorizontal: 16,
+        paddingHorizontal: 15,
         paddingVertical: 8,
         borderRadius: 20,
         elevation: 2,
+        maxWidth: '25%',
+        alignSelf: 'flex-end',
     },
 
     logoutText: {
         color: "#fff",
         fontWeight: "bold",
         fontSize: 14,
+        textAlign: "center",
     },
     container: {
         flex: 1,
@@ -234,7 +343,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "700",
         textAlign: "center",
-        marginBottom: 8,
+        marginVertical: 8,
     },
     motivation: {
         fontSize: 14,

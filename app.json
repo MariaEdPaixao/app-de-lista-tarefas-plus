@@ -33,12 +33,21 @@
     "plugins": [
       "expo-router",
       "@react-native-google-signin/google-signin"
-    ],
-      "extra": {
-        "router": {},
-        "eas": {
-          "projectId": "10bfaeae-d3ed-4391-8b90-51f345380abf"
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "defaultChannel": "default"
         }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "6897cbf9-ab81-42df-8a56-0b40bf649729"
       }
+    },
+    "owner": "maria0807"
   }
 }
