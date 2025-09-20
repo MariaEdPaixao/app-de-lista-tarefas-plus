@@ -17,5 +17,8 @@
     "greeting":"Olá 👋, que bom te ter por aqui!",
     "letsCreateATask":"Vamos criar uma tarefa?",
     "createTask":"Criar nova tarefa",
-    "noTaskCreated":"Nenhuma tarefa criada ainda"
+    "noTaskCreated":"Nenhuma tarefa criada ainda",
+    "taskReminder":"Lembrete de Tarefa",
+    "yourTask":"Sua tarefa",
+    "isDueToday":"vence hoje!"
 }

@@ -17,6 +17,8 @@
     "greeting":"Hi 👋, it's good to have you here!",
     "letsCreateATask":"Let's create a task?",
     "createTask":"Create new task",
-    "noTaskCreated":"No task created yet"
-    
+    "noTaskCreated":"No task created yet",
+    "taskReminder":"Task Reminder",
+    "yourTask":"Your task",
+    "isDueToday":"is due today!"
 }
