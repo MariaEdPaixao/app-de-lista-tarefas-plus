@@ -32,6 +32,8 @@ import { useRouter } from 'expo-router';
 import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import CreateTaskModal from "../src/components/CreateTaskModal";
 import SuccessModal from "../src/components/SuccessModal";
+import ToggleButtonsContainer from "../src/components/ToggleButtonsContainer";
+import { useTranslation } from "react-i18next";
 
 
 export default function HomeScreen() {
@@ -45,6 +47,8 @@ export default function HomeScreen() {
         dueDate: "",
     });
     const [uid, setUid] = useState(null);
+
+    const { t } = useTranslation();
 
     const router = useRouter();
 
@@ -143,14 +147,15 @@ export default function HomeScreen() {
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
                 <ThemeToggleButton />
+            </View> */}
+            <ToggleButtonsContainer/>
                 <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                     <Text style={styles.logoutText}>Logout</Text>
                 </TouchableOpacity>
-            </View>
             <Text style={[styles.welcome, { color: colors.text }]}>
-                Olá 👋, que bom te ter por aqui!
+                {t("greeting")}
             </Text>
 
             {!isLoading && !isError && motivation && (
@@ -160,7 +165,7 @@ export default function HomeScreen() {
             )}
 
             <Text style={[styles.sub, { color: colors.inputText }]}>
-                Vamos criar uma tarefa hoje?
+                {t("letsCreateATask")}
             </Text>
 
             <TouchableOpacity
@@ -168,7 +173,7 @@ export default function HomeScreen() {
                 onPress={() => setModalVisible(true)}
             >
                 <Text style={[styles.createButtonText, { color: colors.buttonText }]}>
-                    ➕ Criar Tarefa
+                    ➕ {t("createTask")}
                 </Text>
             </TouchableOpacity>
 
@@ -181,7 +186,7 @@ export default function HomeScreen() {
                 style={{ marginTop: 20 }}
                 ListEmptyComponent={
                     <Text style={{ color: colors.inputText, textAlign: "center", marginTop: 40 }}>
-                        Nenhuma tarefa criada ainda ✨
+                        {t("noTaskCreated")} ✨
                     </Text>
                 }
             />

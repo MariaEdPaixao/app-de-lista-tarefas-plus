@@ -6,5 +6,16 @@
     "cancel":"Cancelar",
     "delete":"Excluir",
     "login":"Realizar Login",
-    "password":"Senha"
+    "password":"Senha",
+    "forgotPassword":"Esqueci minha senha",
+    "signUp":"Cadastre-se",
+    "theme":"Mudar tema",
+    "language": "Change language",
+    "languageStatus":"pt-br",
+    "register":"Criar conta",
+    "fullName":"Nome completo",
+    "greeting":"Olá 👋, que bom te ter por aqui!",
+    "letsCreateATask":"Vamos criar uma tarefa?",
+    "createTask":"Criar nova tarefa",
+    "noTaskCreated":"Nenhuma tarefa criada ainda"
 }
