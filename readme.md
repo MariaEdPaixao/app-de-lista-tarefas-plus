@@ -198,6 +198,6 @@ Este projeto é desenvolvido para fins educacionais como parte do curso da FIAP.
 
 ## 👥 Equipe
 
-RM558843 - Laura de Oliveira Cintra 
-RM 558832 - Maria Eduarda Alves da Paixão
-RM 554456 - Vinícius Saes de Souza
+* RM 558843 - Laura de Oliveira Cintra 
+* RM 558832 - Maria Eduarda Alves da Paixão
+* RM 554456 - Vinícius Saes de Souza
