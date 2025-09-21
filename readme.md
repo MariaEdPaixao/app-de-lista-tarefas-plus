@@ -174,61 +174,6 @@ app-de-lista-tarefas-plus/
 ```bash
 # Iniciar o servidor de desenvolvimento
 npm start
-
-# Executar no Android
-npm run android
-
-# Executar no iOS
-npm run ios
-
-# Executar na web
-npm run web
-```
-
-## 🧪 Build e Deploy
-
-### Build de Desenvolvimento
-```bash
-expo build:android
-expo build:ios
-```
-
-### Deploy via EAS (recomendado)
-```bash
-# Instalar EAS CLI
-npm install -g @expo/eas-cli
-
-# Login no Expo
-eas login
-
-# Build para Android
-eas build --platform android
-
-# Build para iOS
-eas build --platform ios
-```
-
-## 🔐 Configurações de Segurança
-
-### Firebase Security Rules (Firestore)
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /tasks/{document} {
-      allow read, write: if request.auth != null 
-        && request.auth.uid == resource.data.uid;
-    }
-  }
-}
-```
-
-### Variáveis de Ambiente
-Crie um arquivo `.env` na raiz do projeto:
-```env
-EXPO_PUBLIC_FIREBASE_API_KEY=sua_api_key
-EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=seu_domain
-EXPO_PUBLIC_FIREBASE_PROJECT_ID=seu_project_id
 ```
 
 ## 🐛 Solução de Problemas
@@ -247,27 +192,12 @@ EXPO_PUBLIC_FIREBASE_PROJECT_ID=seu_project_id
 - Limpe o cache: `expo r -c`
 - Verifique se todos os arquivos de configuração estão presentes
 
-## 🤝 Contribuição
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
 ## 📄 Licença
 
 Este projeto é desenvolvido para fins educacionais como parte do curso da FIAP.
 
 ## 👥 Equipe
 
-Desenvolvido com ❤️ pelo grupo Prisma da FIAP - 2º Ano
-
-## 📞 Suporte
-
-Para dúvidas ou problemas:
-- Abra uma [issue](https://github.com/MariaEdPaixao/app-de-lista-tarefas-plus/issues)
----
-
-**Versão**: 1.0.0  
-**Última Atualização**: Setembro 2025
+RM558843 - Laura de Oliveira Cintra 
+RM 558832 - Maria Eduarda Alves da Paixão
+RM 554456 - Vinícius Saes de Souza
