@@ -29,7 +29,6 @@ import {
     Timestamp
 } from "../src/services/firebaseConfig";
 import { useRouter } from 'expo-router';
-import ThemeToggleButton from "../src/components/ThemeToggleButton";
 import CreateTaskModal from "../src/components/CreateTaskModal";
 import SuccessModal from "../src/components/SuccessModal";
 import ToggleButtonsContainer from "../src/components/ToggleButtonsContainer";
@@ -141,6 +140,10 @@ export default function HomeScreen() {
         });
 
         // Schedule a notification for the due date
+
+        const notificationDate = new Date(parsedDate);
+        notificationDate.setHours(9,0,0,0);
+        
         await Notifications.scheduleNotificationAsync({
             content: {
                 title: t("taskReminder") || "Task Reminder",
@@ -148,7 +151,8 @@ export default function HomeScreen() {
                 sound: 'default',
             },
             trigger: {
-                date: parsedDate, // Schedule for the due date at midnight
+                type: Notifications.SchedulableTriggerInputTypes.DATE,
+                date: notificationDate,
             },
         });
 
@@ -168,41 +172,34 @@ export default function HomeScreen() {
             completed: !currentValue,
             updatedAt: new Date(),
         });
-
-        // If task is being marked as completed, you might want to cancel its notification
-        if (!currentValue) {
-            // Task is being completed, you can implement notification cancellation here if needed
-            console.log(`Task ${id} marked as completed - notification handling could be added here`);
-        }
     };
 
     // Notifications
 
-    const registerForPushNotificationsAsync = async () =>{
-        try{
-            // For development/testing, we can skip the token generation if it fails
+    const registerForPushNotificationsAsync = async () => {
+        try {
             const tokenData = await Notifications.getExpoPushTokenAsync({
-                projectId: "6897cbf9-ab81-42df-8a56-0b40bf649729" // Your EAS project ID
+                projectId: "6897cbf9-ab81-42df-8a56-0b40bf649729"
             });
             const token = tokenData.data;
             console.log("Expo Push Token gerado com sucesso: ", token)
             return token
-        }catch(error){
+        } catch (error) {
             console.log("Erro ao gerar token", error)
-            // For local notifications, we don't necessarily need the push token
+           
             console.log("Continuando sem push token - notificações locais funcionarão normalmente")
             return null
         }
     }
 
-    useEffect(()=>{
-        (async()=>{
+    useEffect(() => {
+        (async () => {
             //Chama a função que registra o dispositivo com o serviço de notificação
             const token = await registerForPushNotificationsAsync()
             //Armazenando o token no estado
             setExpoPushToken(token)
         })()
-    },[])
+    }, [])
 
     useEffect(() => {
         //Adiciona um ouvinte(listener) que será chamado sempre que uma notificação for recebida.
@@ -236,10 +233,9 @@ export default function HomeScreen() {
     }, [])
 
     useEffect(() => {
-        // Handle notification responses (when user taps on notification)
+        
         const subscription = Notifications.addNotificationResponseReceivedListener(response => {
             console.log('Notification response received:', response);
-            // You can navigate to a specific screen or perform actions here
         });
 
         return () => subscription.remove();
@@ -250,7 +246,7 @@ export default function HomeScreen() {
         <View style={[styles.container, { backgroundColor: colors.background }]}>
 
             <View style={styles.header}>
-                <ToggleButtonsContainer/>
+                <ToggleButtonsContainer />
             </View>
             <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                 <Text style={styles.logoutText}>Logout</Text>
