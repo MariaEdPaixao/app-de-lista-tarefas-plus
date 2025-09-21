@@ -56,7 +56,7 @@ cd app-de-lista-tarefas-plus
 
 ### 2. Instale as dependências
 ```bash
-npm install
+npm install --force
 # ou
 yarn install
 ```
